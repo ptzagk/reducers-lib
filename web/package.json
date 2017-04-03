@@ -1,0 +1,60 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "reducers-lib example webapp",
+  "config": {
+    "js": "./www/js",
+    "css": "./www/css",
+    "html": "./www"
+  },
+  "scripts": {
+    "core:install": "npm install core",
+    "core:uninstall": "npm uninstall core",
+    "core:link": "npm link ../core",
+    "core:unlink": "npm run core:uninstall && npm uninstall -g core",
+    "build": "npm run clean && npm run scripts",
+    "watch": "npm run scripts -- --watch",
+    "open": "open \"http://0.0.0.0:8100/\"",
+    "clean": "rm -rf $npm_package_config_js $npm_package_config_css && find ./www/* -maxdepth 0 ! -name \"index.html\" -exec rm -rf {} +",
+    "prestart": "npm run core:link",
+    "start": "npm run build && parallelshell 'npm run start:server' 'npm run start:live'",
+    "start:server": "http-server ./www -p 8100",
+    "start:live": "live-reload --port 35729 ./www/",
+    "dist": "npm run clean && npm run scripts",
+    "test": "npm run lint && babel --no-babelrc --plugins transform-es2015-modules-commonjs --extensions=.js ./src -d $npm_package_config_build",
+    "scripts": "webpack --progress --config webpack.config.js",
+    "lint": "standard \"./src/**/*.js\" \"./src/**/*.jsx\"",
+    "release": "npm run dist && npm run deploy"
+  },
+  "keywords": [],
+  "author": "Diego Lavalle <coder@diegolavalle.com> (https://twitter.com/coderlavalle)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coderlavalle/reducers-lib.git/web"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-inline-environment-variables": "^0.0.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "http-server": "^0.9.0",
+    "live-reload": "^1.1.0",
+    "open": "^0.0.5",
+    "parallelshell": "^2.0.0",
+    "standard": "^8.6.0",
+    "standard-loader": "^5.0.0",
+    "watch": "^1.0.1",
+    "webpack": "^2.2.1"
+  },
+  "engines": {
+    "node": "^7.4.0"
+  }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+
+# Logs
+npm-debug.log*
+
+# Dependency directories
+core/node_modules
+web/node_modules
+
+core/lib
+
+web/www/*
+!web/www/index.html
